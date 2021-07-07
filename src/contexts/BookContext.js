@@ -1,8 +1,12 @@
-import React from 'react'
+import React from "react";
 
 //burada başlangıç değeri verdik
-export default React.createContext(
-    [
+export const BookContext = React.createContext();
+
+class BookContextProvider extends React.Component {
+  state = {
+    books: [
+      
         {
           title: "Kırmızı Pazartesi",
           author: "Gabriel Garcia Marquez",
@@ -57,5 +61,31 @@ export default React.createContext(
           topic:
             "1968-1970 yılları arasında geçen olaylar, o günün toplumsal gerçeklerini de satırlara taşıyor. Ama romanın odağında bu toplumsal olaylar değil üçlü bir aşk var. Gençliğin rüzgârıyla hareketlenen İmkânsızın Şarkısını ölümle erken karşılaşan gençlerin hayatı yönlendiriyor. Hiçbir şeyin önem taşımadığı, amaçsızlığın ağır bastığı, özgür seksin kol gezdiği bir öğrenci hayatı... Ama diğer yanda da yoğun duygular var... İmkânsız aşklar, imkânsız şarkılar söyleten. Hemen hemen her Japon gencinin okuduğu roman anayurdu dışında da çok kişi tarafından sahipleniliyor.",
         },
-      ],
-)
+      
+    ],
+  };
+  render() {
+    return (
+      <BookContext.Provider value={this.state}>
+        {this.props.children}
+      </BookContext.Provider>
+    );
+  }
+}
+export default BookContextProvider;
+
+
+// 1 - ) Default value ---> this.context
+// - Context nesnesini oluşturduk
+// başlangıç değerini verdik ve export ettik
+// ilgili componenta import ettik
+// context type yardımıyla contexti ilgili componente atadık
+// this.context yardımıyla ilgili veriye ulaştık.
+
+
+// 2 - ) Provider -----> Consumer
+// İlk olarak class comp oluşturduk ve veriyi state içine koyduk.
+// Contexte ait provider ile state de bulunan veriyi aldık.
+//props childiren ile ilgili verinin app de parentin childe ulaşmadını sağladık.
+//Veriyi göndereceğimiz comp a contexti import ediyoruz.
+// render içerisinde consumer ile providerdan gelen veriyi yakalıyoruz.
